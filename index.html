@@ -2,13 +2,11 @@
 <html>
 
 <head>
-  <title>Markdown Previewer and Editor</title>
+  <title>Markdown Previewer</title>
   <!-- include the Markdown.js library for parsing Markdown -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown.js/0.5.0/markdown.min.js"></script>
   <link href="codepreview.png" rel="icon" />
-</head>
 
-<body>
   <style>
     * {
       padding: 0;
@@ -21,53 +19,53 @@
     }
 
     textarea {
-      height: 200px;
+      height: 70vh;
       width: 90%;
-      padding: 5px;
+      padding: 3px;
       border: 1px solid black;
+      resize: none;
     }
 
     #preview {
-      height: 300px;
+      height: 70vh;
       width: 90%;
       border: 1px solid black;
       text-align: left;
-      margin: auto;
       overflow: auto;
-      resize: both;
     }
-
-    legend {
-      text-align: left;
-      padding-left: 15px;
+    
+    .paret {
+      border: 1px solid black;
+      margin: 1rem;
+      padding: 2rem 2rem;
+      text-align: center;
+    }
+    .child {
+      display: inline-block;
+      vertical-align: middle;
+      width: 48%;
+      height: 90%;
+      overflow: auto;
     }
   </style>
-  <h1>Markdown Previewer</h1>
-  <p>Enter your Markdown code below:</p>
-  <textarea id="markdown-code">
-### This is an example of Markdown on Codepreview!
-Enter your markdown in this text box, and it will update below!
-  </textarea>
+</head>
 
+<body>
+  
   <br>
-  <p>Preview:</p>
-  <div id="preview"></div>
+  <h1>Markdown Previewer</h1>
+  <div class='parent'>
+    <div class='child'>
+      <h2>Code</h2>
+        <textarea id="markdown-code">hrhh</textarea>
+    </div>`
+    <div class='child'>
+      <h2>Preview</h2>
+      <div id="preview"></div>
+    </div>
+  </div>
+  
   <script>
-    document.getElementById('markdown-code').addEventListener('keydown', function(e) {
-      if (e.key == 'Tab') {
-        e.preventDefault();
-        var start = this.selectionStart;
-        var end = this.selectionEnd;
-
-        // set textarea value to: text before caret + tab + text after caret
-        this.value = this.value.substring(0, start) +
-          "\t" + this.value.substring(end);
-
-        // put caret at right position again
-        this.selectionStart =
-          this.selectionEnd = start + 1;
-      }
-    });
 
     function updateMd() {
       var markdownCode = document.getElementById("markdown-code").value;
