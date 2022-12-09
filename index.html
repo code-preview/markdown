@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Markdown Previewer and Editor</title>
+  <!-- include the Markdown.js library for parsing Markdown -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown.js/0.5.0/markdown.min.js"></script>
+  <link href="codepreview.png" rel="icon" />
+</head>
+
+<body>
+  <style>
+    * {
+      padding: 0;
+      margin: 5px;
+    }
+
+    body {
+      font-family: Verdana;
+      text-align: center;
+    }
+
+    textarea {
+      height: 200px;
+      width: 90%;
+      padding: 5px;
+      border: 1px solid black;
+    }
+
+    #preview {
+      height: 300px;
+      width: 90%;
+      border: 1px solid black;
+      text-align: left;
+      margin: auto;
+      overflow: auto;
+      resize: both;
+    }
+
+    legend {
+      text-align: left;
+      padding-left: 15px;
+    }
+  </style>
+  <h1>Markdown Previewer</h1>
+  <p>Enter your Markdown code below:</p>
+  <textarea id="markdown-code">
+### This is an example of Markdown on Codepreview!
+Enter your markdown in this text box, and it will update below!
+  </textarea>
+
+  <br>
+  <p>Preview:</p>
+  <div id="preview"></div>
+  <script>
+    document.getElementById('markdown-code').addEventListener('keydown', function(e) {
+      if (e.key == 'Tab') {
+        e.preventDefault();
+        var start = this.selectionStart;
+        var end = this.selectionEnd;
+
+        // set textarea value to: text before caret + tab + text after caret
+        this.value = this.value.substring(0, start) +
+          "\t" + this.value.substring(end);
+
+        // put caret at right position again
+        this.selectionStart =
+          this.selectionEnd = start + 1;
+      }
+    });
+
+    function updateMd() {
+      var markdownCode = document.getElementById("markdown-code").value;
+      var html = markdown.toHTML(markdownCode);
+      document.getElementById("preview").innerHTML = html;
+    }
+    document.getElementById("markdown-code").addEventListener("input", updateMd)
+    updateMd()
+  </script>
+</body>
+
+</html>
